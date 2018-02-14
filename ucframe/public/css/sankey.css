@@ -1,0 +1,133 @@
+body.sankey {
+    height: 100%;
+    font-family: "Trebuchet MS", "Open Sans", Segoe UI light, Verdana, Tahoma, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+}
+
+#outer_container {
+    width: 80%;
+    height: 750px;
+    align: left;
+}
+
+#chart {
+    height: 99%;
+    float: left;
+    position: absolute;
+    width: 40%;
+}
+
+#smallchart {
+    height: 99%;
+    float: left;
+    position: absolute;
+    width: 50%;
+}
+
+.pagetitle {
+    height: 30px;
+    color: #F60;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+    font-weight: bold;
+    font-style: oblique
+}
+
+.node rect {
+    cursor: move;
+    fill-opacity: .9;
+    shape-rendering: crispEdges
+}
+
+.node text {
+    pointer-events: none;
+    text-shadow: 0 1px 0 #fff
+}
+
+.link {
+    stroke: #000;
+    stroke-opacity: .3;
+}
+
+.link:hover {
+    stroke-opacity: .7;
+}
+
+#titlebar {
+    width: 60%;
+    height: 30px;
+    border-bottom: solid;
+    border-color: #EEE;
+    padding-bottom: 5px;
+    margin-left: 40px;
+    margin-top: 5px;
+    position: fixed;
+    z-index: 50;
+}
+
+#titlebar-right {
+    right: -moz-calc(20% + 50px);
+    right: -webkit-calc(20% + 50px);
+    right: calc(20% + 50px);
+    height: 30px;
+    padding-bottom: 5px;
+    margin-left: 40px;
+    margin-top: 5px;
+    position: fixed;
+    z-index: 50;
+}
+
+.dragdealer {
+    height: 30px;
+    background: #EEE;
+    z-index: 50;
+}
+
+.dragdealer .handle {
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+
+.dragdealer .red-bar {
+    width: 100px;
+    height: 30px;
+    background: #F80;
+    color: #FFF;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+    font-weight: bold;
+    font-style: oblique
+}
+
+.dragdealer .red-bar:hover {
+    background: #F60
+}
+
+.dragdealer .orange-bar {
+    width: 25px;
+    height: 18px;
+    background: #F80;
+    color: #FFF;
+    font-size: 18px;
+    line-height: 16px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dragdealer .orange-bar:hover {
+    background: #F60
+}
+
+.dragdealer .disabled {
+    background: #898989
+}
+
+.likeform input {
+    width:100%; 
+    min-width:220px;
+}

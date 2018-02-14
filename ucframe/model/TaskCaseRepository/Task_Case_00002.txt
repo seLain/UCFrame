@@ -1,0 +1,18 @@
+[Task_Case_00002]
+[[Task-Meta]]
+taskName = Give Location of A Puzzle Piece
+taskId = Task_Case_00002
+Project = PuzzleBreaker
+Member = Kevin
+Visible = False
+RevisedId = None
+SubmitTime = 2015-05-05 16:47:31
+[[Pre-Condition]]
+PreCondition-Condition-0 =  The required $PuzzleProject exists
+[[Event-Flow]]
+EventFlow-0 = @I use *PuzzleBreaker to take a $Picture of the $PuzzlePiece
+EventFlow-1 = @I cut the $PictureSide of the $Picture to get a precise $PuzzlePiece
+EventFlow-2 = *PuzzleBreaker compares the $PuzzlePiece with $FullImage to get $PuzzleLocation
+EventFlow-3 = *PuzzleBreaker tells the $PuzzleLocation of the $PuzzlePiece to @Me
+[[Post-Condition]]
+PostCondition-Condition-0 = *PuzzleBreaker gives the $PuzzleLocation

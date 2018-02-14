@@ -1,0 +1,406 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <xi:include href="master.html" />
+
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" py:replace="''"/>
+  <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+  <script src="//code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="/javascript/bootstrap.min.js"></script>
+    
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  <script src="http://documentcloud.github.com/underscore/underscore-min.js" type="text/javascript"></script>
+  <script src="/javascript/jquery-textntags.js" type='text/javascript'></script>
+  <script  src="/javascript/ProFrameJS.js"/>
+  
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+  <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" />  
+  <link href="/css/jquery-textntags.css" rel="stylesheet" type="text/css" />  
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" type="text/css" href="/css/ucframe.css" />
+  <link rel="stylesheet" href="/css/app.css" />
+  <script>
+  //<![CDATA[
+  ( function($) {
+
+  $(function() {
+	    $("#Task_information_id").attr('action', '/redirect_page');
+	    $('#NextButton').click(function(){
+	    	if (document.getElementById('PostCondition-Condition-input-1').value == ""){
+	    		alert("Please at least input one 'Post Condition'.");
+	    	}
+	    	else{
+	    		document.getElementById('PostCondition-Conditiont-1').value = document.getElementById('PostCondition-Condition-input-1').value;
+	    		document.getElementById('PostCondition-Conditiont-2').value = document.getElementById('PostCondition-Condition-input-2').value;
+	    		document.getElementById('PostCondition-Conditiont-3').value = document.getElementById('PostCondition-Condition-input-3').value;
+	    		document.Task_information_name.submit();
+	    	}
+	  	});
+	    $('#BackButton').click(function(){
+			document.getElementById('redirectPage').value = "Event-Flow-Edit";
+			document.getElementById('PostCondition-Conditiont-1').value = document.getElementById('PostCondition-Condition-input-1').value;
+    		document.getElementById('PostCondition-Conditiont-2').value = document.getElementById('PostCondition-Condition-input-2').value;
+    		document.getElementById('PostCondition-Conditiont-3').value = document.getElementById('PostCondition-Condition-input-3').value;
+	  		document.Task_information_name.submit();
+	  	});
+	    
+	    var ajax_request = false;
+	    $('input.textntags').textntags({
+	        onDataRequest:function (mode, query, triggerChar, callback) {
+	            // fix for overlapping requests
+	            var data = { '@': [], '$': [], '*': [] };
+	            var i;
+	            if(ajax_request){
+                    ajax_request.abort();
+                };
+	            ajax_request = $.getJSON('taskCase_TypeTag.json', function(responseData) {
+	            	$.each( responseData, function( tagType, val ) {
+	            		if (tagType == "Actor"){
+	            			$.each( val, function( number, tagInstance ){
+		            			data['@'].push(tagInstance);	            				
+	            			});
+	            		}
+	            		else if (tagType == "Message"){
+	            			$.each( val, function( number, tagInstance ){
+		            			data['$'].push(tagInstance);	            				
+	            			});
+	            		}
+	            		else if (tagType == "System"){
+	            			$.each( val, function( number, tagInstance ){
+		            			data['*'].push(tagInstance);           				
+	            			});
+	            		}
+	            		
+	            	  });
+		            query = query.toLowerCase();
+		            var found = _.filter(data[triggerChar], function(item) {
+		            	return item.name.toLowerCase().indexOf(query) != -1; });
+		            callback.call(this, found);
+	                ajax_request = false;
+	            });
+                // console log for monitoring
+	            //console.log(query);
+	        }
+	    });
+        
+        $('input.textntags').keyup(function(){
+            // check for performance issue
+            // [TOFIX] it should be refined later for better operating in input
+            if(this.value[this.value.length-1] != ' '){
+                return;
+            };
+            // send the query term back to the controller of TurboGears
+            // and expect to get the metrics data
+            var postcon_list = get_postcon_list();
+            console.log('get_postcon_list:'+postcon_list);
+            parameters = this.value + '&' + postcon_list;
+            conn_request = $.getJSON('postcon_metrics.json?'+this.value, function(responseData){
+            // workable, but the html content should be prepared by the controller
+            // to avoid huge computation complex in the javascript part
+                $('#metrics_info').html('');  // clear
+                // deal with CRT data
+                var CRT_data = responseData['CRT']
+                var CRT_average = parseFloat(CRT_data['average'])*100;
+                var CRT_description = CRT_data['description']
+                var CRT_terms = CRT_data['terms']
+                $('#metrics_info').append('<a class="tagdef" onclick="alert(\''+ 
+                                            CRT_description + '\')">CRT</a> average:'+
+                                            CRT_average+'%<br/>');
+                for(var term_name in CRT_terms){
+                    var percentage = parseFloat(CRT_terms[term_name])*100;
+                    $('#metrics_info').append('&nbsp;&nbsp;&nbsp;CRT of ' + term_name + ':' + 
+                                              percentage + '%<br/>');
+                };
+            }); 
+        });
+      
+        // request for the similar terms
+        $('input.textntags').keyup(function(){
+            // check for performance issue
+            // [TOFIX] it should be refined later for better operating in input
+            // [start of rules to avoid sending too many requests]
+            var result = (this.value.match(new RegExp("\\s", "g"))||[]).length;
+            if(result < 3) { console.log("1"); return; }
+            if(this.value[this.value.length-1] != ' ') { console.log("2"); return; }
+            var splitted = this.value.split(" ");
+            var last_entity = splitted[splitted.length-2]; // the [length-1] element is ' '
+            console.log("last:"+last_entity);
+            if(last_entity.length < 3) { console.log("3"); return; }
+            // [end of rules to avoid sending too many requests]
+            // get similar tags
+            similar_request = $.getJSON('similar_tags.json?'+this.value, function(responseData){
+                var similar_tags = responseData['tags'];
+                //var glossaries = $.parseJSON(responseData['glossaries']);
+                var glossaries = responseData['glossaries'];
+                $('#similar_tags').html('');  // clear
+                for(var term in similar_tags){
+                    $('#similar_tags').append('<a onclick="alert(\'' +
+                                              term + ' 底下為其他貢獻者所使用最相似的詞彙 (Terms).\\n\\n' + 
+                                              '部份可點選詞彙代表本計畫已經確認此詞彙的具體代表意義.\\n\\n' +
+                                              '每個詞彙背後的數字為相似度數值. ' + 
+                                              '相似度為介於 0~1 之間的計算值.' + 
+                                              '\')"><b>'+term+'</b></a>:<br/>');
+                    var tags = similar_tags[term];
+                    for(var atag in tags){
+                        console.log(glossaries);
+                        var tag_def = null;
+                        for(var tag_index in glossaries){
+                          if(glossaries[tag_index] != null){
+                              console.log('tag_index:'+tag_index);
+                              console.log('glossaries[tag_index]:'+glossaries[tag_index]);
+                              console.log('tags[atag][0]:'+tags[atag][0]);
+                          }
+                          if(glossaries[tag_index] != null && tag_index == tags[atag][0]){
+                              tag_def = glossaries[tag_index];
+                          }
+                        }
+                        console.log('tag_def:'+tag_def);
+                        if(tag_def != null){
+                            var alter_msg = tags[atag][0] + ' 被定義為 : ' + tag_def + '\\n\\n' + 
+                                            '與 ' + term + ' 之間的相似度為 ' + tags[atag][1] + '\\n\\n' +
+                                            '相似度為介於 0~1 之間的計算值.';
+                            $('#similar_tags').append('&nbsp;&nbsp;&nbsp;<a class="tagdef" onclick="alert(\''+ 
+                                                      alter_msg + '\')">'+
+                                                      tags[atag][0] + ' (' + tags[atag][1] + ') ' + 
+                                                      '</a><br/>');
+                        }else{
+                            $('#similar_tags').append('&nbsp;&nbsp;&nbsp;'+ tags[atag][0] + 
+                                                      ' (' + tags[atag][1] + ') <br/>');
+                        }
+                    }
+                };
+            }); 
+        });
+        
+        $('input.textntags').keyup(function(){
+            // check for performance issue
+            // [TOFIX] it should be refined later for better operating in input
+            // [start of rules to avoid sending too many requests]
+            var result = (this.value.match(new RegExp("\\s", "g"))||[]).length;
+            if(result < 3) { console.log("1"); return; }
+            if(this.value[this.value.length-1] != ' ') { console.log("2"); return; }
+            var splitted = this.value.split(" ");
+            var last_entity = splitted[splitted.length-2]; // the [length-1] element is ' '
+            console.log("last:"+last_entity);
+            if(last_entity.length < 3) { console.log("3"); return; }
+            // [end of rules to avoid sending too many requests]
+            // get similar tags
+            similar_request = $.getJSON('similar_precons.json?'+this.value, function(responseData){
+                $('#similar_events').html('');  // clear
+                var similar_postcons = responseData['precons'];
+                for(var an_event in similar_postcons){
+                    //console.log("an_event:"+an_event);
+                    var content = similar_postcons[an_event]['content'];
+                    var score = similar_postcons[an_event]['similarity'];
+                    $('#similar_events').append(content + ' (' + score +')<br/><br/>');
+                };
+            }); 
+        });
+});
+  
+  } ) ( jQuery );
+
+  function show_tr(tr_id)
+  {
+  var result_style = document.getElementById(tr_id).style;
+  result_style.display = 'table-row';
+  }
+  
+  function get_postcon_list(){
+    var postcon_list = document.getElementById('PostCondition-Condition-input-1').value + '&' +
+                       document.getElementById('PostCondition-Condition-input-2').value + '&' +
+                       document.getElementById('PostCondition-Condition-input-3').value;
+    return postcon_list;
+  }
+
+  // ]]>
+  </script>
+
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="/javascript/dragdealer.js"></script>
+    <link rel="stylesheet" href="/css/sankey.css" />
+    <script>
+        var sizecorrection = Math.max(0, 220 - parseInt(window.innerWidth * 0.2));
+    </script>
+    <script>
+        var densityslider = new Dragdealer("pslider", {
+                                    x: 0.5,
+                                    steps: 5,
+                                    snap: true,
+                                    callback: function(a, b) {
+                                        padding = paddingmultiplier * (1 - a) + 3;
+                                        draw()
+                                    }
+                                });
+    </script>
+    
+</head>
+    
+<body>
+
+    
+<div id="input_container">
+    
+    <div class="row">
+        <div class="col-md-4">
+            <label>Metrics</label>
+            <div id="metrics_info">
+                This is metrics info block.
+            </div>    
+        </div>
+        <div class="col-md-4">
+            <label>Similar Terms</label>
+            <div id="similar_tags">
+                This is block of similar tags.
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label>Possible Associated PreConditions</label>
+            <div id="similar_events">
+                This is similar pre-condition block.
+            </div>
+        </div>
+    </div>  
+    
+    <div id="input_area">
+	  <label class="cuc_caption">Crowd Use Case Post-Conditions (step 4/5)</label>
+      <table class="cuc_input">
+	  <form id="Task_information_id" name="Task_information_name" method="post" enctype="multipart/form-data">
+		  <tbody>
+		  	<input type="hidden" id="redirectPage" name="redirectPage" value="View-Task-Edit"></input>
+		  	<tr style="display: none;">
+			  	<td py:for='parameter in parameters'>
+			  		<p py:if=" parameter not in ['redirectPage']" width="84%">
+			  			<input id="${parameter}" name="${parameter}" value="${parameters[parameter]}"/>
+			  		</p>
+			  	</td>
+			  	<td>
+			  	<input id="PostCondition-Conditiont-1" name="PostCondition-Condition-1" style="width: 500px; padding: 2px"  value=""></input>
+			  	<input id="PostCondition-Conditiont-2" name="PostCondition-Condition-2" style="width: 500px; padding: 2px"  value=""></input>
+			  	<input id="PostCondition-Conditiont-3" name="PostCondition-Condition-3" style="width: 500px; padding: 2px"  value=""></input>
+			  	</td>
+		  	</tr>
+			<tr class="three_column" id="Tr-PostCondition-Title">
+			    <td class="column_1"></td>
+			    <td class="column_2">Post-Condition</td>
+			    <td class="column_3"></td>
+			</tr>
+			<tr class="three_column" id="Tr-PostCondition-Row-1">	  
+			     <td class="column_1">1</td>
+			     <td class="column_2" py:if=" 'PostCondition-Condition-1' in self_input">
+		  			<input class="textntags" id="PostCondition-Condition-input-1" name="PostCondition-Condition-1" value="${self_input['PostCondition-Condition-1']}"></input>
+			     </td>
+			     <td class="column_2" py:if=" 'PostCondition-Condition-1' not in self_input">
+		  			<input class="textntags" id="PostCondition-Condition-input-1" name="PostCondition-Condition-1" placeholder="Actor/System has/with Status/Messsage"></input>
+			     </td>
+			     <td class="column_3">
+			        <a class="btn btn-primary btn-small " href="javascript:show_tr('Tr-PostCondition-Row-2');">+ </a>
+			     </td>
+			</tr>
+            <tr class="three_column" id="Tr-PostCondition-Row-2" style="display: none;">
+                 <td class="column_1">2</td>
+                 <td class="column_2" py:if=" 'PostCondition-Condition-2' in self_input">
+                      <input class="textntags" id="PostCondition-Condition-input-2" name="PostCondition-Condition-2" value="${self_input['PostCondition-Condition-2']}"></input>
+                 </td>
+                 <td class="column_2" py:if=" 'PostCondition-Condition-2' not in self_input">
+                      <input class="textntags" id="PostCondition-Condition-input-2" name="PostCondition-Condition-2" placeholder="Actor/System has/with Status/Messsage"></input>
+                 </td>
+                 <td class="column_3">
+                    <a class="btn btn-primary btn-small " href="javascript:show_tr('Tr-PostCondition-Row-3');">+ </a>
+                 </td>
+            </tr>
+            <tr class="three_column" id="Tr-PostCondition-Row-3" style="display: none;">
+                 <td class="column_1">3</td>
+                 <td class="column_2" py:if=" 'PostCondition-Condition-3' in self_input">
+                      <input class="textntags" id="PostCondition-Condition-input-3" name="PostCondition-Condition-3" value="${self_input['PostCondition-Condition-3']}"></input>
+                 </td>
+                 <td class="column_2" py:if=" 'PostCondition-Condition-3' not in self_input">
+                      <input class="textntags" id="PostCondition-Condition-input-3" name="PostCondition-Condition-3" placeholder="Actor/System has/with Status/Messsage"></input>
+                 </td>
+                 <td class="column_3">
+                    
+                 </td>
+            </tr>
+		  </tbody>
+      </form>
+	  </table>
+	  <br />
+	  <br />
+	  <p align="center">
+	    <a class="btn btn-primary btn-large ui-widget" href="MemberMainPage">
+	      Home 
+	    </a>
+	    <a id="BackButton" class="btn btn-primary btn-large ui-widget">
+	      Back 
+	    </a>
+	    <a id="NextButton" class="btn btn-primary btn-large">
+	      Next
+	    </a>
+	  </p>
+        
+    </div>
+
+    <div id="supply">
+        
+        <div id="titlebar" style="display:none;">
+           <span id="titletext" class="pagetitle">Sankey Diagram</span>
+        </div>
+        
+        <div style="display:none;overflow: hidden;white-space: nowrap;">
+            <div style="float:right;">
+                <div id="pslider" title="Drag slider to set diagram node padding" class="dragdealer">
+                    <div class="handle orange-bar">↔
+                        <script>
+                            var densityslider = new Dragdealer("pslider", {
+                                x: 0.5,
+                                steps: 5,
+                                snap: true,
+                                callback: function(a, b) {
+                                    padding = paddingmultiplier * (1 - a) + 3;
+                                    draw()
+                                }
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="display:none;overflow: hidden;white-space: nowrap;">
+            <div class="likeform" id="nodes-form">
+                <!--
+                <div py:for="anode in nodes"><input type="text" value="${anode['text']}"/></div>
+                -->
+            </div>
+        </div>
+        
+        <div style="display:none;overflow: hidden;white-space: nowrap;">
+            <div class="likeform" id="links-form">
+                <!--
+                <div py:for="aedge in edges">
+                    <input type="text" value="${aedge['source-index']},${aedge['target-index']},${aedge['count']}"/>
+                </div>
+                -->
+            </div>
+
+        </div>
+        
+        <div id="chart"></div>
+        <!--
+        <script src="/javascript/sankey.js"></script>
+        <script src="/javascript/food.js"></script>
+        -->
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script src="/javascript/app_dynamic_postcon.js"></script>
+    </div>
+
+</div>
+    
+    
+</body>
+    
+</html>

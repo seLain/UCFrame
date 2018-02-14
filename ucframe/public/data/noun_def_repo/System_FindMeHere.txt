@@ -1,0 +1,14 @@
+#
+# the name of this noun
+#
+Name = FindMeHere
+
+#
+# the type of this noun
+#
+Type = System
+
+#
+# the general description of this noun
+#
+Description = The target software we want to build.

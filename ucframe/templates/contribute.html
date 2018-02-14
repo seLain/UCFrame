@@ -1,0 +1,120 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <xi:include href="master.html" />
+
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" py:replace="''"/>
+  <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+  <script src="//code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="/javascript/bootstrap.min.js"></script>
+    
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  <script src="http://documentcloud.github.com/underscore/underscore-min.js" type="text/javascript"></script>
+  <script src="/javascript/jquery-textntags.js" type='text/javascript'></script>
+  <script  src="/javascript/ProFrameJS.js"/>
+  
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+  <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" />  
+  <link href="/css/jquery-textntags.css" rel="stylesheet" type="text/css" />  
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" type="text/css" href="/css/ucframe.css" />
+  <link rel="stylesheet" href="/css/app.css" />
+    
+  
+    
+  <script>
+  $(function() {
+    // once submit, trigger contribute_pre for precondifiton input
+	$("#Task_information_id").attr('action', '/contribute_pre');
+    $('#NextButton').click(function(){
+        // check if these fields are empty if any
+    	if (document.getElementById('Project').value == ""){
+    		alert("The 'Project' space cannot be empty.");
+    	}else if (document.getElementById('taskName').value == ""){
+    		alert("The 'Task Name' space cannot be empty.");
+    	}else if (document.getElementById('Member').value == ""){
+    		alert("The 'Member' space cannot be empty.");
+    	}else{ // all filled, submit
+    		document.Task_information_name.submit();
+    	}
+  	});
+  });
+  </script>
+    
+</head>
+    
+<body>
+
+<div id="input_container">
+
+    <div id="input_area">
+
+        <label class="cuc_caption">Crowd Use Case Metadata (step 1/5)</label>
+        
+        <table class="cuc_input">
+	  <form id="Task_information_id" name="Task_information_name" method="post" enctype="multipart/form-data">
+		  <tbody>
+            <input type="hidden" id="redirectPage" name="redirectPage" value="Pre-Condition-Edit"></input>
+            <!-- [seLain] unknown purpose tr -->
+		  	<tr style="display: none;">
+			  	<td py:for='parameter in parameters'>
+			  		<input id="${parameter}" name="${parameter}" value="${parameters[parameter]}"/>
+			  	</td>
+		  	</tr>
+		  	<tr>
+			    <td class="field_label">Project Name</td>
+			    <td class="field_input" py:if=" 'Project' in self_input">
+		  			<input id="Project" name="Project" value="${self_input['Project']}"></input>
+			     </td>
+			     <td class="field_input" py:if=" 'Project' not in self_input">
+		  			<input id="Project" name="Project" placeholder="Please input Project name"></input>
+			     </td>
+			     
+		  	</tr>
+		  	<tr>
+			    <td class="field_label">Requirement Name</td>
+			    <td class="field_input" py:if=" 'taskName' in self_input">
+		  			<input id="taskName" name="taskName" value="${self_input['taskName']}"></input>
+			     </td>
+			     <td class="field_input" py:if=" 'taskName' not in self_input">
+		  			<input id="taskName" name="taskName" placeholder="Please input task name"></input>
+			     </td>
+			     
+		  	</tr>
+		  	<tr>
+			    <td class="field_label">Contributor</td>
+			    <td class="field_input" py:if=" 'Member' in self_input">
+		  			<input id="Member" name="Member" value="${self_input['Member']}"></input>
+			     </td>
+			     <td class="field_input" py:if=" 'Member' not in self_input">
+		  			<input id="Member" name="Member" placeholder="Please input Member name"></input>
+			     </td>
+			     
+		  	</tr>
+			
+		  </tbody>
+      </form>
+	  </table>
+	  <br />
+	  <br />
+	  <p align="center">
+	    <a class="btn btn-primary btn-large ui-widget" href="MemberMainPage">
+	      Home 
+	    </a>
+	    <a id="NextButton" class="btn btn-primary btn-large">
+	      Next
+	    </a>
+	  </p>
+        
+    </div>
+    
+</div>
+    
+    
+</body>
+    
+</html>

@@ -1,0 +1,4 @@
+recursive-include ucframe/public *
+include ucframe/public/favicon.ico
+recursive-include ucframe/i18n *
+recursive-include ucframe/templates *

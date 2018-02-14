@@ -1,0 +1,18 @@
+[Task_Case_00001]
+[[Task-Meta]]
+taskName = Give Location of A Single Puzzle
+taskId = Task_Case_00001
+Project = PuzzleBreaker
+Member = Elvis
+Visible = False
+RevisedId = None
+SubmitTime = 2015-05-01 16:47:31
+[[Pre-Condition]]
+PreCondition-Condition-0 = A $PuzzleProject exists
+[[Event-Flow]]
+EventFlow-0 = @Elvis selects the $PuzzleProject of current puzzle
+EventFlow-1 = @Elvis takes a clear picture of the $PuzzlePiece according the *FocusZone
+EventFlow-2 = @Elvis confirms the $PuzzlePiecePicture
+EventFlow-3 = The $PuzzleLocation is show in the *PhoneScreen
+[[Post-Condition]]
+PostCondition-Condition-0 = The $PuzzleLocation is show in the *PhoneScreen

@@ -1,0 +1,14 @@
+#
+# the name of this noun
+#
+Name = App
+
+#
+# the type of this noun
+#
+Type = System
+
+#
+# the general description of this noun
+#
+Description = the App we want to build. this term is the same with FindMeHere.

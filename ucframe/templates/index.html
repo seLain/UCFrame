@@ -1,0 +1,45 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <xi:include href="master.html" />
+
+<head>
+  <title>Welcome to UCFrame</title>
+</head>
+
+<body>
+  <div class="row">
+    <div class="col-md-7">
+      
+      <div >
+        <img src="img/operaing.png" />
+      </div>
+    </div>
+    <div class="col-md-4 hidden-xs hidden-sm" style="padding-top:20px;padding-left:20px">
+      <a class="btn btn-info btn-sm active" href="/contribute" style="font-size:125%" >${h.icon('play')} Go to Contribute Requirement</a><br/>
+      <div style="padding-top:20px;font-size:110%">Instructions
+        <ul>
+          <br/>
+          <li>a) Ready to edit and submit flow of events</li>
+          <br/>
+          <li>b) If an event field is empty, it reveals a suggested syntax template as hint for writing.</li>
+          <br/>
+          <li>c) The input field supports AMS tagging with <b>`@' tag for Actor</b>b> terms, <b>`\$' for Message</b> terms, and <b>`*' for System</b> terms</li>
+          <ul>
+            <li>c-2) Each term with an AMS tag has a hint-box during the input</li>
+            <li>c-3) Similar terms information box</li>
+            <li>c-4) Suggested glassory terms defined by project owner</li>
+          </ul>
+          <br/>
+          <li>d) Requirement qulaity metrics</li>
+          <br/>
+          <li>e) Instant AMS key terms and association visualization</li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+</body>
+</html>

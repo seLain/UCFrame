@@ -1,0 +1,492 @@
+[User]
+Category = Actor
+Type = Instance
+Abstraction = User
+RealWord = User
+Name = User
+[Picture]
+Category = Actor
+Type = Instance
+Abstraction = Picture
+RealWord = Picture
+Name = Picture
+[System]
+Category = System
+Type = Instance
+Abstraction = System
+RealWord = System
+Name = System
+[Image]
+Category = Message
+Type = Instance
+Abstraction = Image
+RealWord = Image
+Name = Image
+[App]
+Category = System
+Type = Instance
+Abstraction = App
+RealWord = App
+Name = App
+[Users]
+Category = Actor
+Type = Instance
+Abstraction = Users
+RealWord = Users
+Name = Users
+[GetAdvice]
+Category = System
+Type = Instance
+Abstraction = GetAdvice
+RealWord = GetAdvice
+Name = GetAdvice
+[Locations]
+Category = Message
+Type = Instance
+Abstraction = Locations
+RealWord = Locations
+Name = Locations
+[PuzzleBreaker]
+Category = System
+Type = Instance
+Abstraction = PuzzleBreaker
+RealWord = PuzzleBreaker
+Name = PuzzleBreaker
+[Pictures]
+Category = Message
+Type = Instance
+Abstraction = Pictures
+RealWord = Pictures
+Name = Pictures
+[GetPieces]
+Category = System
+Type = Instance
+Abstraction = GetPieces
+RealWord = GetPieces
+Name = GetPieces
+[GetCompleteImage]
+Category = System
+Type = Instance
+Abstraction = GetCompleteImage
+RealWord = GetCompleteImage
+Name = GetCompleteImage
+[Option]
+Category = Message
+Type = Instance
+Abstraction = Option
+RealWord = Option
+Name = Option
+[Options]
+Category = Message
+Type = Instance
+Abstraction = Options
+RealWord = Options
+Name = Options
+[result]
+Category = Message
+Type = Instance
+Abstraction = result
+RealWord = result
+Name = result
+[location]
+Category = Message
+Type = Instance
+Abstraction = location
+RealWord = location
+Name = location
+[ClockOfTheMobilePhone]
+Category = Actor
+Type = Instance
+Abstraction = ClockOfTheMobilePhone
+RealWord = ClockOfTheMobilePhone
+Name = ClockOfTheMobilePhone
+[metadata]
+Category = Message
+Type = Instance
+Abstraction = metadata
+RealWord = metadata
+Name = metadata
+[PhotoGalleryOfTheMobilePhone]
+Category = Actor
+Type = Instance
+Abstraction = PhotoGalleryOfTheMobilePhone
+RealWord = PhotoGalleryOfTheMobilePhone
+Name = PhotoGalleryOfTheMobilePhone
+[InitialTime]
+Category = Message
+Type = Instance
+Abstraction = InitialTime
+RealWord = InitialTime
+Name = InitialTime
+[PhotoOfThePuzzle]
+Category = Message
+Type = Instance
+Abstraction = PhotoOfThePuzzle
+RealWord = PhotoOfThePuzzle
+Name = PhotoOfThePuzzle
+[FullPictureOfThePuzzle]
+Category = Message
+Type = Instance
+Abstraction = FullPictureOfThePuzzle
+RealWord = FullPictureOfThePuzzle
+Name = FullPictureOfThePuzzle
+[PuzzleGallery]
+Category = System
+Type = Instance
+Abstraction = PuzzleGallery
+RealWord = PuzzleGallery
+Name = PuzzleGallery
+[PhotoOfTheFinishedPuzzle]
+Category = Message
+Type = Instance
+Abstraction = PhotoOfTheFinishedPuzzle
+RealWord = PhotoOfTheFinishedPuzzle
+Name = PhotoOfTheFinishedPuzzle
+[AddPieces]
+Category = System
+Type = Instance
+Abstraction = AddPieces
+RealWord = AddPieces
+Name = AddPieces
+[AddCompleteImage]
+Category = System
+Type = Instance
+Abstraction = AddCompleteImage
+RealWord = AddCompleteImage
+Name = AddCompleteImage
+[Record]
+Category = Message
+Type = Instance
+Abstraction = Record
+RealWord = Record
+Name = Record
+[Records]
+Category = Message
+Type = Instance
+Abstraction = Records
+RealWord = Records
+Name = Records
+[Player]
+Category = Actor
+Type = Instance
+Abstraction = Player
+RealWord = Player
+Name = Player
+[Area]
+Category = Message
+Type = Instance
+Abstraction = Area
+RealWord = Area
+Name = Area
+[PathInformation]
+Category = Message
+Type = Instance
+Abstraction = PathInformation
+RealWord = PathInformation
+Name = PathInformation
+[FindMeHere]
+Category = System
+Type = Instance
+Abstraction = FindMeHere
+RealWord = FindMeHere
+Name = FindMeHere
+[Tips]
+Category = Message
+Type = Instance
+Abstraction = Tips
+RealWord = Tips
+Name = Tips
+[image]
+Category = Message
+Type = Instance
+Abstraction = image
+RealWord = image
+Name = image
+[ScannedHistory]
+Category = Message
+Type = Instance
+Abstraction = ScannedHistory
+RealWord = ScannedHistory
+Name = ScannedHistory
+[position.]
+Category = Message
+Type = Instance
+Abstraction = position.
+RealWord = position.
+Name = position.
+[piece]
+Category = Message
+Type = Instance
+Abstraction = piece
+RealWord = piece
+Name = piece
+[user]
+Category = Actor
+Type = Instance
+Abstraction = user
+RealWord = user
+Name = user
+[puzzles]
+Category = Message
+Type = Instance
+Abstraction = puzzles
+RealWord = puzzles
+Name = puzzles
+[RecommendFunction]
+Category = System
+Type = Instance
+Abstraction = RecommendFunction
+RealWord = RecommendFunction
+Name = RecommendFunction
+[CorrectPosition]
+Category = Message
+Type = Instance
+Abstraction = CorrectPosition
+RealWord = CorrectPosition
+Name = CorrectPosition
+[SkillResult]
+Category = Message
+Type = Instance
+Abstraction = SkillResult
+RealWord = SkillResult
+Name = SkillResult
+[ranking]
+Category = Message
+Type = Instance
+Abstraction = ranking
+RealWord = ranking
+Name = ranking
+[function]
+Category = System
+Type = Instance
+Abstraction = function
+RealWord = function
+Name = function
+[ranks]
+Category = Message
+Type = Instance
+Abstraction = ranks
+RealWord = ranks
+Name = ranks
+[Comments]
+Category = Message
+Type = Instance
+Abstraction = Comments
+RealWord = Comments
+Name = Comments
+[OtherPlayers]
+Category = Actor
+Type = Instance
+Abstraction = OtherPlayers
+RealWord = OtherPlayers
+Name = OtherPlayers
+[SemiImage]
+Category = Message
+Type = Instance
+Abstraction = SemiImage
+RealWord = SemiImage
+Name = SemiImage
+[Play]
+Category = Actor
+Type = Instance
+Abstraction = Play
+RealWord = Play
+Name = Play
+[MobileApp]
+Category = System
+Type = Instance
+Abstraction = MobileApp
+RealWord = MobileApp
+Name = MobileApp
+[PossibleSolution]
+Category = Message
+Type = Instance
+Abstraction = PossibleSolution
+RealWord = PossibleSolution
+Name = PossibleSolution
+[PiecePicture]
+Category = Message
+Type = Instance
+Abstraction = PiecePicture
+RealWord = PiecePicture
+Name = PiecePicture
+[MobileApp's]
+Category = System
+Type = Instance
+Abstraction = MobileApp's
+RealWord = MobileApp's
+Name = MobileApp's
+[Piece]
+Category = System
+Type = Instance
+Abstraction = Piece
+RealWord = Piece
+Name = Piece
+[comments]
+Category = Message
+Type = Instance
+Abstraction = comments
+RealWord = comments
+Name = comments
+[picture]
+Category = System
+Type = Instance
+Abstraction = picture
+RealWord = picture
+Name = picture
+[picutre(record)]
+Category = System
+Type = Instance
+Abstraction = picutre(record)
+RealWord = picutre(record)
+Name = picutre(record)
+[PuzzlePicture]
+Category = Message
+Type = Instance
+Abstraction = PuzzlePicture
+RealWord = PuzzlePicture
+Name = PuzzlePicture
+[PuzzlePiece]
+Category = Message
+Type = Instance
+Abstraction = PuzzlePiece
+RealWord = PuzzlePiece
+Name = PuzzlePiece
+[PiecePicture(record)]
+Category = System
+Type = Instance
+Abstraction = PiecePicture(record)
+RealWord = PiecePicture(record)
+Name = PiecePicture(record)
+[message]
+Category = Message
+Type = Instance
+Abstraction = message
+RealWord = message
+Name = message
+[PieceLocation]
+Category = Message
+Type = Instance
+Abstraction = PieceLocation
+RealWord = PieceLocation
+Name = PieceLocation
+[WholePuzzle]
+Category = Message
+Type = Instance
+Abstraction = WholePuzzle
+RealWord = WholePuzzle
+Name = WholePuzzle
+[CorrectResult]
+Category = Message
+Type = Instance
+Abstraction = CorrectResult
+RealWord = CorrectResult
+Name = CorrectResult
+[PuzzleGame]
+Category = Message
+Type = Instance
+Abstraction = PuzzleGame
+RealWord = PuzzleGame
+Name = PuzzleGame
+[Puzzles]
+Category = Message
+Type = Instance
+Abstraction = Puzzles
+RealWord = Puzzles
+Name = Puzzles
+[Puzzle]
+Category = Message
+Type = Instance
+Abstraction = Puzzle
+RealWord = Puzzle
+Name = Puzzle
+[MostDifficultRemainingPuzzle]
+Category = Message
+Type = Instance
+Abstraction = MostDifficultRemainingPuzzle
+RealWord = MostDifficultRemainingPuzzle
+Name = MostDifficultRemainingPuzzle
+[Hint]
+Category = Message
+Type = Instance
+Abstraction = Hint
+RealWord = Hint
+Name = Hint
+[CompletePuzzleImage]
+Category = Message
+Type = Instance
+Abstraction = CompletePuzzleImage
+RealWord = CompletePuzzleImage
+Name = CompletePuzzleImage
+[PieceImage]
+Category = Message
+Type = Instance
+Abstraction = PieceImage
+RealWord = PieceImage
+Name = PieceImage
+[PartialCompleteImage]
+Category = Message
+Type = Instance
+Abstraction = PartialCompleteImage
+RealWord = PartialCompleteImage
+Name = PartialCompleteImage
+[PhotoOfThePiece]
+Category = Message
+Type = Instance
+Abstraction = PhotoOfThePiece
+RealWord = PhotoOfThePiece
+Name = PhotoOfThePiece
+[CompletedPuzzle]
+Category = Message
+Type = Instance
+Abstraction = CompletedPuzzle
+RealWord = CompletedPuzzle
+Name = CompletedPuzzle
+[MainPage]
+Category = System
+Type = Instance
+Abstraction = MainPage
+RealWord = MainPage
+Name = MainPage
+[PiecesLocationPage]
+Category = System
+Type = Instance
+Abstraction = PiecesLocationPage
+RealWord = PiecesLocationPage
+Name = PiecesLocationPage
+[CameraPage]
+Category = System
+Type = Instance
+Abstraction = CameraPage
+RealWord = CameraPage
+Name = CameraPage
+[ReferenceImage]
+Category = System
+Type = Instance
+Abstraction = ReferenceImage
+RealWord = ReferenceImage
+Name = ReferenceImage
+[PuzzleBox]
+Category = Actor
+Type = Instance
+Abstraction = PuzzleBox
+RealWord = PuzzleBox
+Name = PuzzleBox
+[PieceLocationPage]
+Category = System
+Type = Instance
+Abstraction = PieceLocationPage
+RealWord = PieceLocationPage
+Name = PieceLocationPage
+[ReferenceImagePage]
+Category = System
+Type = Instance
+Abstraction = ReferenceImagePage
+RealWord = ReferenceImagePage
+Name = ReferenceImagePage
+[puzzle]
+Category = System
+Type = Instance
+Abstraction = puzzle
+RealWord = puzzle
+Name = puzzle

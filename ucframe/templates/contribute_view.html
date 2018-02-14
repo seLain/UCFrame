@@ -1,0 +1,232 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/"
+      xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <xi:include href="master.html" />
+
+<head>
+  <script src="/javascript/bootstrap.min.js"></script>  
+  <script src="/javascript/jquery-2.1.4.min.js"></script>
+  <script src="/javascript/jquery-ui.min.js"></script>
+  <script src="/javascript/underscore-min.js" type="text/javascript"></script>
+  <script src="/javascript/jquery-textntags.js" type='text/javascript'></script>
+  <script  src="/javascript/ProFrameJS.js"/>
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+  <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" />  
+  <link href="/css/jquery-textntags.css" rel="stylesheet" type="text/css" />  
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" type="text/css" href="/css/ucframe.css" />
+  <link rel="stylesheet" href="/css/app.css" />
+  <script>
+  //<![CDATA[
+  ( function($) {
+  $(function() {
+	$("#Task_information_id").attr('action', '/redirect_page');
+	$('#Pre-Condition-Edit').click(function(){
+			document.getElementById('redirectPage').value = "Pre-Condition-Edit";
+	  		document.Task_information_name.submit();
+	  	});
+	$('#Post-Condition-Edit').click(function(){
+		document.getElementById('redirectPage').value = "Post-Condition-Edit";
+  		document.Task_information_name.submit();
+  	});
+	$('#Event-Flow-Edit').click(function(){
+		document.getElementById('redirectPage').value = "Event-Flow-Edit";
+  		document.Task_information_name.submit();
+  	});
+	$('#Task-Meta-Edit').click(function(){
+		document.getElementById('redirectPage').value = "Task-Meta-Edit";
+  		document.Task_information_name.submit();
+  	});
+    $('#SaveButton').click(function(){
+		document.getElementById('redirectPage').value = "Save-Data";
+  		document.Task_information_name.submit();
+  	});
+    
+    // get the similar CUCs
+    /*
+    var ajax_request = false;
+    $( document ).ready(function() {
+        var parameter = get_content_list();
+        similar_request = $.getJSON('similar_cucs.json?'+parameters, function(responseData){
+            
+        });
+    });*/
+    
+    // function to open the extended question form
+    $(function(){
+        $('#all_cuc_table').find('.check_btn').click(function(){
+            // append the response form after the clicked row
+            var clicked_row = $(this).closest('tr');
+            var cuc_id = clicked_row.find('.id').text();
+            conn_request = $.getJSON('get_cuc.json?'+cuc_id, function(responseData){
+            	var cuc_data = responseData['cuc'];
+            	var precons = cuc_data['Pre-Condition'];
+            	console.log('precons:'+precons);
+            	var events = cuc_data['Event-Flow'];
+            	var postcons = cuc_data['Post-Condition'];
+            	var alert_message = "";
+            	// preconditions
+            	alert_message += "Pre-Conditions:\n\n";
+            	for(var con in precons){
+            		alert_message += precons[con] + "\n\n";
+            	}
+            	// events
+            	alert_message += "Event Flow:\n\n";
+            	var event_count = 1;
+            	for(var ev in events){
+            		alert_message += event_count + ". " + events[ev] + "\n\n";
+            		event_count += 1;
+            	}
+            	// postconditions
+            	alert_message += "Post-Conditions:\n\n";
+            	for(var con in postcons){
+            		alert_message += postcons[con] + "\n\n";
+            	}
+            	alert(alert_message);
+            });
+        });
+    });
+
+  });
+
+  } ) ( jQuery );
+  /*
+  function get_content_list(){
+    var content_list = document.getElementById('PreCondition-Condition-1').value + '&' +
+                       document.getElementById('PreCondition-Condition-2').value + '&' +
+                       document.getElementById('PreCondition-Condition-3').value  + '&' +
+                       document.getElementById('EventFlow-1').value + '&' +
+                       document.getElementById('EventFlow-2').value + '&' +
+                       document.getElementById('EventFlow-3').value + '&' +
+                       document.getElementById('EventFlow-4').value + '&' +
+                       document.getElementById('EventFlow-5').value + '&' +
+                       document.getElementById('EventFlow-6').value + '&' +
+                       document.getElementById('EventFlow-7').value + '&' +
+                       document.getElementById('EventFlow-8').value + '&' +
+                       document.getElementById('EventFlow-9').value + '&' +
+                       document.getElementById('PostCondition-Condition-1').value + '&' +
+                       document.getElementById('PostCondition-Condition-2').value + '&' +
+                       document.getElementById('PostCondition-Condition-3').value;
+    return content_list;
+  }*/
+
+  // ]]>
+
+  </script>
+    
+</head>
+    
+<body>
+<div id="input_container">
+    <div id="input_area">
+	  <label class="cuc_caption">Crowd Use Case Confirmation (step 5/5)</label>
+	  <table class="cuc_input">
+	  <form id="Task_information_id" name="Task_information_name" method="post" enctype="multipart/form-data">
+		  <tbody>
+		  	<tr style="display: none;">
+			  	<td py:for='parameter in pre_condition'>
+			  		<p py:if=" parameter not in ['redirectPage']" width="84%">
+			  			<input id="${parameter}" name="${parameter}" value="${pre_condition[parameter]}"/>
+			  		</p>
+			  	</td>
+			  	<td py:for='parameter in event_flow'>
+			  		<p py:if=" parameter not in ['redirectPage']" width="84%">
+			  			<input id="${parameter}" name="${parameter}" value="${event_flow[parameter]}"/>
+			  		</p>
+			  	</td>
+			  	<td py:for='parameter in post_condition'>
+			  		<p py:if=" parameter not in ['redirectPage']" width="84%">
+			  			<input id="${parameter}" name="${parameter}" value="${post_condition[parameter]}"/>
+			  		</p>
+			  	</td>
+			  	<td py:for='parameter in task_meta'>
+			  		<p py:if=" parameter not in ['redirectPage']" width="84%">
+			  			<input id="${parameter}" name="${parameter}" value="${task_meta[parameter]}"/>
+			  		</p>
+			  	</td>
+		  	</tr>
+		  	<tr>
+		  	<input type="hidden" id="redirectPage" name="redirectPage" value=""></input>
+			  	<td >
+			  		<h3>Task Meta Data <a id="Task-Meta-Edit"><small>Edit</small></a></h3><blockquote>
+			  		<ul>
+			  			<li> Name : ${task_meta["taskName"]} </li>
+			  			<li> Member : ${task_meta["Member"]} </li>
+			  		</ul>
+			  		</blockquote>
+			  		<h3>Pre-Condition <a id="Pre-Condition-Edit"><small>Edit</small></a></h3>
+			  		<blockquote><ul>
+			  		<p py:for="parameter in ['PreCondition-Condition-0', 'PreCondition-Condition-1', 'PreCondition-Condition-2']">
+				  		<li py:if='parameter in pre_condition'>
+				  			${pre_condition[parameter]}
+				  		</li>
+				  	</p>
+					</ul></blockquote>
+			  		<h3>Event Flow <a id="Event-Flow-Edit"><small>Edit</small></a></h3>
+			  		<blockquote><ol>
+			  		<p py:for="parameter in ['EventFlow-0', 'EventFlow-1', 'EventFlow-2', 'EventFlow-3', 'EventFlow-4', 'EventFlow-5', 'EventFlow-6', 'EventFlow-7', 'EventFlow-8', 'EventFlow-9']">
+				  		<li  py:if='parameter in event_flow'>
+				  			${event_flow[parameter]}
+				  		</li>
+				  	</p>
+				  	</ol></blockquote>
+			  		<h3>Post-Condition <a id="Post-Condition-Edit"><small>Edit</small></a></h3>
+			  		<blockquote><ul>
+			  		<p py:for="parameter in ['PostCondition-Condition-0', 'PostCondition-Condition-1', 'PostCondition-Condition-2']">
+				  		<li  py:if='parameter in post_condition'>
+				  			${post_condition[parameter]}
+				  		</li>
+				  	</p>
+				  	</ul></blockquote>
+			  	</td>
+		  	</tr>
+			
+		  </tbody>
+      </form>
+	  </table>
+	  <br />
+	  <br />
+	  <p align="center">
+	    <a class="btn btn-primary btn-large ui-widget" href="MemberMainPage">
+	      Home 
+	    </a>
+	    <a id="SaveButton" class="btn btn-primary btn-large">
+	      Contribute
+	    </a>
+	  </p>
+	</div>
+
+	<div id="supply">
+        <div>
+            <label class="cuc_caption">Similar Use Cases</label>
+            <table id="all_cuc_table">
+                <div py:for="cuc in similar_cucs">
+                	<tr class="cuc">
+                		<td style="display:none" class="id">${cuc['id']}</td>
+                		<td class="name">${cuc['name']}</td>
+                    <!-- [seLain] Do Not Show the similarity during exp2
+                		<td class="similarity">${cuc['similarity']}</td>
+                    -->
+                		<td class="check_btn">
+                           <a class="btn btn-primary btn-small">Check</a>
+                        </td>
+                	</tr>
+                </div>
+            </table>
+            <!--
+            <div id="similar_CUCs">
+                <ul py:for="cuc in similar_cucs">
+                	<li>${cuc['name']}(${cuc['similarity']})</li>
+                	<table class="cuc_input">
+                	</table>
+                </ul>
+            </div>--> 
+        </div>
+	</div>
+
+</div> <!-- end of input container -->
+</body>
+    
+</html>

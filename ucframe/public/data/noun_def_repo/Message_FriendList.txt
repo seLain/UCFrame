@@ -1,0 +1,14 @@
+#
+# the name of this noun
+#
+Name = FriendList
+
+#
+# the type of this noun
+#
+Type = Messsage
+
+#
+# the general description of this noun
+#
+Description = A list in FindMeHere to record current groups of friends.

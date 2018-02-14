@@ -1,0 +1,14 @@
+#
+# the name of this noun
+#
+Name = User
+
+#
+# the type of this noun
+#
+Type = Actor
+
+#
+# the general description of this noun
+#
+Description = The user using FindMeHre app in his/her won smart phone.

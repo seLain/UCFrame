@@ -1,0 +1,14 @@
+#
+# the name of this noun
+#
+Name = OtherUsers
+
+#
+# the type of this noun
+#
+Type = Actor
+
+#
+# the general description of this noun
+#
+Description = Refers to the other FindMeHere users in the same group with current user. For example, the group members of the tourguide in a tour group.

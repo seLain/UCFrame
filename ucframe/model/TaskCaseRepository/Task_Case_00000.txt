@@ -1,0 +1,20 @@
+[Task_Case_00000]
+[[Task-Meta]]
+taskName = Set the Full Picture
+taskId = Task_Case_00000
+Project = PuzzleBreaker
+Member = Elvis
+Visible = False
+RevisedId = None
+SubmitTime = 2015-05-01 16:47:31
+[[Pre-Condition]]
+PreCondition-Condition-0 = *PuzzleBreaker is installed
+[[Event-Flow]]
+EventFlow-0 = @Elvis selects the *NewProjectButton to start a $NewPuzzleProject
+EventFlow-1 = @Elvis input the $PuzzleProjectName
+EventFlow-2 = @Elvis selects the *ConfirmButton
+EventFlow-3 = @Elvis tasks a clear $FullPuzzleImage of the puzzle box according the the *FocusZone
+EventFlow-4 = @Elvis confirms the $FullPuzzleImage on the *PhoneScreen
+EventFlow-5 = *PuzzleBreaker shows the $NewPuzzleProject
+[[Post-Condition]]
+PostCondition-Condition-0 = *PuzzleBreaker shows the $NewPuzzleProject
